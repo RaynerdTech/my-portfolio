@@ -7,7 +7,7 @@ import { loadFull } from 'tsparticles';
 import type { Engine } from '@tsparticles/engine';
 
 export const ParticleBackground = () => {
-  const [init, setInit] = useState(false); // State to track if particles engine is initialized
+  const [init, setInit] = useState(false);
 
   useEffect(() => {
     // This effect runs once to initialize the tsParticles engine
@@ -16,7 +16,7 @@ export const ParticleBackground = () => {
     }).then(() => {
       setInit(true); // Set init to true once the engine is loaded
     });
-  },); // Empty dependency array ensures this runs only once on mount
+  }, []); // <--- HERE! Changed from },) to }, [])
 
   // If the engine is not yet initialized, return null or a loading indicator
   if (!init) {
@@ -27,23 +27,23 @@ export const ParticleBackground = () => {
     <Particles
       id="tsparticles"
       options={{
-        fullScreen: { enable: true, zIndex: -50 },
+        fullScreen: { enable: true, zIndex: -1 }, // Assuming -1 fixed your previous issue
         background: { color: 'transparent' },
         particles: {
           number: {
             value: 60,
             density: {
               enable: true,
-              width: 800,
-              height: 800,
+              width: 2000,
+              height: 2000,
             },
           },
           color: { value: '#60A5FA' },
           links: {
             enable: true,
-            distance: 150,
+            distance: 50,
             color: '#60A5FA',
-            opacity: 0.4,
+            opacity: 0.1,
             width: 1,
           },
           move: {
@@ -51,10 +51,10 @@ export const ParticleBackground = () => {
             speed: 1,
           },
           size: {
-            value: 2,
+            value: 14,
           },
           opacity: {
-            value: 0.5,
+            value: 0.1,
           },
         },
         interactivity: {

@@ -4,23 +4,9 @@ import { motion } from 'framer-motion';
 import {
   FaReact,
   FaNodeJs,
-  FaJsSquare,
-  FaHtml5,
-  FaCss3Alt,
   FaGitAlt,
 } from 'react-icons/fa'; // Example icons, adjust as needed
-import {
-  SiNextdotjs,
-  SiTypescript,
-  SiTailwindcss,
-  SiMongodb,
-  SiFramer,
-  SiStripe,
-  SiGraphql,
-  SiPostgresql,
-  SiPython,
-} from 'react-icons/si'; // Example icons, adjust as needed
-
+import { SiNextdotjs, SiTypescript, SiTailwindcss, SiMongodb, SiFramer, SiWordpress, SiCanva, SiGoogleanalytics } from 'react-icons/si';
 // A richer, more diverse set of tech stack items
 const techStack = [
   { name: 'Next.js', icon: <SiNextdotjs className="text-white" /> },
@@ -30,12 +16,11 @@ const techStack = [
   { name: 'Node.js', icon: <FaNodeJs className="text-green-500" /> },
   { name: 'Express.js', icon: <FaNodeJs className="text-gray-400" /> }, // Node.js icon for Express
   { name: 'MongoDB', icon: <SiMongodb className="text-green-400" /> },
-  { name: 'PostgreSQL', icon: <SiPostgresql className="text-blue-500" /> },
-  { name: 'GraphQL', icon: <SiGraphql className="text-pink-500" /> },
   { name: 'Framer Motion', icon: <SiFramer className="text-purple-400" /> },
-  { name: 'Stripe', icon: <SiStripe className="text-purple-600" /> },
-  { name: 'Python', icon: <SiPython className="text-yellow-400" /> },
   { name: 'Git', icon: <FaGitAlt className="text-orange-600" /> },
+  { name: 'WordPress', icon: <SiWordpress className="text-blue-600" /> },
+  { name: 'SEO', icon: <SiGoogleanalytics className="text-yellow-500" /> }, // Google Analytics as proxy for SEO
+  { name: 'Canva', icon: <SiCanva className="text-sky-500" /> },
 ];
 
 // Framer Motion variants for staggered animation of tech items

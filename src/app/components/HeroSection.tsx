@@ -5,8 +5,14 @@ import { LavaLampBlob } from './LavaLampBlob'; // Assuming LavaLampBlob is a com
 
 export const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center text-center px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden backdrop-blur-md bg-transparent">
-
+    <section
+      className="relative min-h-screen flex items-center justify-center text-center px-4 sm:px-6 md:px-8 lg:px-12 overflow-hidden backdrop-blur-md bg-transparent"
+      style={{
+        // Apply a linear gradient mask to the section itself for the fading background effect
+        maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%)', // For Webkit browsers
+      }}
+    >
       {/* Background elements for depth and dynamism */}
       <div className="absolute inset-0 z-0">
         <LavaLampBlob />
@@ -22,13 +28,12 @@ export const HeroSection = () => {
         initial={{ opacity: 0, y: 60, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 1.2, ease: 'easeOut' }}
-        style={{
-          // Apply a radial gradient mask to create the fading edge effect for the box itself
-          maskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)',
-          maskMode: 'alpha',
-          WebkitMaskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)', // For Webkit browsers
-
-        }}
+        // Remove the maskImage from this div, as it's for the overall background fade
+        // style={{
+        //   maskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)',
+        //   maskMode: 'alpha',
+        //   WebkitMaskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)',
+        // }}
       >
         <motion.h1
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-tight mb-3 sm:mb-4 tracking-tight"

@@ -7,7 +7,7 @@ import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { name: 'Home', href: '/' },
-  { name: 'About', href: '#about' },
+  { name: 'About', href: '/about' },
   { name: 'Projects', href: '/projects' },
   { name: 'Contact', href: '#contact' },
 ];
@@ -15,40 +15,33 @@ const navLinks = [
 export const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false); // 👈 Add this
+
+  useEffect(() => {
+    setHasMounted(true); // 👈 Update this
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Set 'scrolled' to true if user scrolls down more than 20px
-      // A smaller threshold might feel more responsive for background change
       setScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent scrolling and overflow on mobile when menu is open
   useEffect(() => {
     const html = document.documentElement;
     const body = document.body;
-
     if (mobileOpen) {
-      html.style.overflow = 'hidden'; // Prevents scrolling on html element
-      body.style.overflow = 'hidden'; // Prevents scrolling on body element
-      // For iOS Safari, you might need to additionally set position: fixed on body
-      // body.style.position = 'fixed';
-      // body.style.width = '100%';
+      html.style.overflow = 'hidden';
+      body.style.overflow = 'hidden';
     } else {
       html.style.overflow = '';
       body.style.overflow = '';
-      // body.style.position = '';
-      // body.style.width = '';
     }
-
     return () => {
       html.style.overflow = '';
       body.style.overflow = '';
-      // body.style.position = '';
-      // body.style.width = '';
     };
   }, [mobileOpen]);
 
@@ -67,32 +60,30 @@ export const Header = () => {
     visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.07, delayChildren: 0.2 } },
   };
 
+  // 👇 Prevent hydration mismatch
+  if (!hasMounted) return null;
+
   return (
     <motion.header
-      // The initial animation is fine for a one-time entrance
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-      // Base classes always apply
       className={`fixed top-0 left-0 w-full z-50 px-4 py-3 sm:px-6 md:px-8 lg:px-12 transition-all duration-300
         ${scrolled
           ? 'bg-gradient-to-r from-slate-900/90 to-black/90 backdrop-blur-lg border-b border-purple-500/30 shadow-xl'
-          : 'bg-transparent backdrop-blur-md border-b border-transparent' // Make background transparent when not scrolled
+          : 'bg-transparent backdrop-blur-md border-b border-transparent'
         }
       `}
-      // Removed redundant overflow-x-hidden here.
-      // If you still have horizontal scroll issues, it's likely a content element
-      // outside the header that needs overflow-x-hidden on its parent or a global wrapper.
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <Link
-          href="#"
+          href="/"
           className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 hover:from-blue-300 hover:to-purple-300 transition-all duration-300 ease-out tracking-wide"
         >
           Ray()
         </Link>
 
-        {/* Desktop Navigation */}
+        {/* Desktop Nav */}
         <nav className="hidden md:flex gap-x-10 lg:gap-x-12 text-slate-200 font-medium">
           {navLinks.map((link) => (
             <motion.a
@@ -125,7 +116,7 @@ export const Header = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation Overlay */}
+      {/* Mobile Overlay */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.nav
@@ -135,10 +126,9 @@ export const Header = () => {
             variants={mobileMenuVariants}
             className="fixed inset-0 w-screen h-screen overflow-y-auto bg-slate-950/95 backdrop-blur-xl md:hidden flex flex-col items-center justify-center space-y-8 z-40"
           >
-            {/* Close button for mobile menu, explicitly positioned within the overlay */}
             <motion.button
               onClick={() => setMobileOpen(false)}
-              className="absolute top-6 right-6 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 rounded p-2 z-50" // Increased z-index to ensure it's on top
+              className="absolute top-6 right-6 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 rounded p-2 z-50"
               aria-label="Close menu"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
