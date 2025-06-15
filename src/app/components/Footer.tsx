@@ -23,7 +23,7 @@ export const Footer = () => {
 
       <div className="relative z-50 max-w-6xl mx-auto flex flex-col items-center justify-center text-center py-1">
         <p className="text-slate-400 text-sm">
-          © {currentYear} YourName. All rights reserved.
+          © {currentYear} All rights reserved.
           <a
             href="http://raynerd.com.ng/"
             target="_blank"

@@ -51,7 +51,7 @@ export const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          I craft **scalable**, **performant**, and **visually captivating** web applications, transforming complex ideas into intuitive user experiences with modern technologies.
+          I craft scalable, performant, and visually captivating web applications, transforming complex ideas into intuitive user experiences with modern technologies.
         </motion.p>
 
         <motion.div
