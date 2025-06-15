@@ -184,31 +184,11 @@ const faqItemVariants = {
     exit: { height: 0, opacity: 0 },
 };
 
-// NEW: Animation variants for the pricing card container for staggering
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1, // Each child will animate 0.1s after the previous one
-    },
-  },
-};
 
-// NEW: Animation variants for individual pricing cards
-const cardVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.95 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { type: 'spring', stiffness: 250, damping: 25 },
-  },
-}
 
 export default function ProjectsClientPage() {
     const pricingControls = useAnimation();
-    const [pricingRef, pricingInView] = useInView({
+    const [, pricingInView] = useInView({
         triggerOnce: true,
         threshold: 0.2,
     });
@@ -434,7 +414,7 @@ export default function ProjectsClientPage() {
                         className="text-lg sm:text-xl text-slate-200 mb-12 max-w-3xl mx-auto text-shadow-md"
                         variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0, transition: { delay: 0.1 } } }}
                     >
-                        Let's transform your ideas into a stunning digital reality. Contact us today for a free consultation and a tailored proposal.
+                        Let&#39;s transform your ideas into a stunning digital reality. Contact us today for a free consultation and a tailored proposal.
                     </motion.p>
                     <motion.button
                         onClick={scrollToContact}

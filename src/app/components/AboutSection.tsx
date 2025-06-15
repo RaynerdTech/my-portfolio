@@ -76,7 +76,7 @@ export const AboutSection = () => {
         viewport={{ once: true, amount: 0.5 }}
         transition={{ delay: 0.3, duration: 1, ease: 'easeOut' }}
       >
-        I'm a passionate <span className="text-purple-300 font-bold">Fullstack Developer</span> dedicated to crafting exceptional digital experiences. My expertise lies in building high-performance, scalable, and visually stunning web applications using a cutting-edge tech stack.
+        I&#39;m a passionate <span className="text-purple-300 font-bold">Fullstack Developer</span> dedicated to crafting exceptional digital experiences. My expertise lies in building high-performance, scalable, and visually stunning web applications using a cutting-edge tech stack.
       </motion.p>
 
       {/* Modernized Tech Stack Grid */}
@@ -87,7 +87,7 @@ export const AboutSection = () => {
         whileInView="show"
         viewport={{ once: true, amount: 0.1 }}
       >
-        {techStack.map((tech, index) => (
+        {techStack.map((tech) => (
           <motion.div
             key={tech.name}
             className="flex flex-col items-center justify-center p-4 sm:p-6 bg-gray-800/60 rounded-xl shadow-lg border border-gray-700 hover:border-blue-500/50 transform transition-all duration-300 ease-in-out cursor-pointer group relative overflow-hidden"

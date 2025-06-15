@@ -42,7 +42,7 @@ export const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-500 text-transparent bg-clip-text drop-shadow-lg block">
-            Hello, I'm <span className="font-black">Ray</span>
+            Hello, I&#39;m <span className="font-black">Ray</span>
           </span>
           <span className="block text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-slate-200 font-semibold mt-3 sm:mt-4">
             A Creative Fullstack Developer

@@ -19,7 +19,7 @@ import 'swiper/css/navigation';
 // Icon Imports
 import {
   FaLaptopCode, FaServer, FaWordpress, FaGitAlt, FaReact,
-  FaNodeJs, FaTools, FaStar, FaQuoteLeft, FaGraduationCap,
+  FaNodeJs, FaTools, FaQuoteLeft, FaGraduationCap,
   FaHtml5, FaCss3Alt, FaJsSquare
 } from 'react-icons/fa';
 import { TbBrandNextjs, TbBrandTypescript, TbBrandFramer } from 'react-icons/tb';
@@ -280,7 +280,8 @@ export default function AboutClientPage() {
               className="mt-8 px-8 py-3 rounded-full text-lg font-bold text-white bg-gradient-to-r from-purple-700 to-blue-700 shadow-[0_10px_20px_rgba(79,0,255,0.3)] hover:from-purple-800 hover:to-blue-800 transition-all duration-300 ease-out transform hover:scale-105 active:scale-95"
               variants={itemVariants}
           >
-              Let's Connect
+              <p>Let&#39;s Connect</p>
+
           </motion.button>
         </motion.div>
 
@@ -491,9 +492,10 @@ export default function AboutClientPage() {
     </span>
   </motion.h2>
 
-  <p className="text-lg text-gray-400 max-w-2xl mx-auto text-center mb-12">
-    Don't just take our word for it - hear what our clients say
-  </p>
+ <p className="text-lg text-gray-400 max-w-2xl mx-auto text-center mb-12">
+  Don&#39;t just take our word for it – hear what our clients say
+</p>
+
 
   <motion.div
     ref={testimonialsRef}
