@@ -107,18 +107,20 @@ export const AboutSection = () => {
         ))}
       </motion.div>
 
-      <motion.p
-        className="text-slate-400 text-base sm:text-lg md:text-xl mt-16 sm:mt-20 max-w-3xl mx-auto font-light"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ delay: 1.2, duration: 1, ease: 'easeOut' }}
-      >
-        I thrive on transforming innovative ideas into tangible solutions with
-        <span className="text-green-300 font-bold"> clean code</span>,
-        <span className="text-pink-300 font-bold"> creative design</span>, and a relentless
-        focus on <span className="text-yellow-300 font-bold"> user experience</span>.
-      </motion.p>
+     {/* Adjusted delay from 1.2s to 0.4s for faster animation */}
+<motion.p
+  className="text-slate-400 text-base sm:text-lg md:text-xl mt-16 sm:mt-20 max-w-3xl mx-auto font-light"
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.5 }}
+  transition={{ delay: 0.4, duration: 1, ease: 'easeOut' }} // 💡 Was delay: 1.2 before
+>
+  I thrive on transforming innovative ideas into tangible solutions with
+  <span className="text-green-300 font-bold"> clean code</span>,
+  <span className="text-pink-300 font-bold"> creative design</span>, and a relentless
+  focus on <span className="text-yellow-300 font-bold"> user experience</span>.
+</motion.p>
+
     </section>
   );
 };

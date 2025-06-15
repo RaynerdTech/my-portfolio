@@ -76,7 +76,7 @@ const itemVariants = {
 
 export const ProjectsSection = () => {
   const controls = useAnimation();
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   useEffect(() => {
     if (inView) controls.start('show');
@@ -89,7 +89,7 @@ export const ProjectsSection = () => {
     >
       {/* Background Blobs */}
       <div className="absolute -top-20 left-1/4 w-80 h-80 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-0" />
-      <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000" />
+      <div className="absolute bottom-10 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-1000" />
 
       <motion.h2
         className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold pb-10 sm:pb-12 md:pb-16 text-center text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 tracking-tight drop-shadow-lg"

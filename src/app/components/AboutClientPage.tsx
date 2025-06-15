@@ -58,10 +58,10 @@ interface Certification {
 
 const personalStoryContent = {
   title: 'My Journey: Crafting Digital Excellence from Passion',
-  description: `Hello! I'm Ray, a Full-Stack Developer who loves turning ideas into smooth, scalable digital experiences. I’m all about clean code, great design, and solving real problems.`,
-  furtherDetails: `I started with basic HTML/CSS and grew into building full-stack apps with powerful backends and sleek frontends. I care about the little details, love creative challenges, and always aim to deliver work that’s both smart and user-friendly.`,
+  description: `Hello! I'm Ray, a Full-Stack Developer based in Lagos who loves turning ideas into smooth, scalable digital experiences. I’m all about clean code, great design, and solving real problems.`,
+  furtherDetails: `I started with basic HTML/CSS and grew into building full-stack web apps with powerful backends and sleek frontends. I care about the little details, love creative challenges, and always aim to deliver work that’s both smart and user-friendly.`,
   imageUrl: '/images/raynerd-tech.jpg',
-  imageAlt: 'Giblify Protrait of Raynerd Tech, a passionate Full-Stack Developer',
+  imageAlt: 'Giblify Protrait of Raynerd Tech, a passionate Full-Stack Developer based in Lagos, Nigeria',
 };
 
 const extraterrestrialGoal = {
@@ -264,7 +264,7 @@ export default function AboutClientPage() {
           className="flex-1 text-center lg:text-left"
         >
           <motion.h1
-            className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 leading-tight drop-shadow-lg"
+            className="text-3xl sm:text-5xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 leading-tight drop-shadow-lg"
             variants={itemVariants}
           >
             {personalStoryContent.title}
@@ -313,7 +313,7 @@ export default function AboutClientPage() {
           variants={sectionVariants}
         >
           <motion.h2
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-lime-300 to-emerald-400 leading-tight drop-shadow-glow tracking-tight"
+            className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-green-300 via-lime-300 to-emerald-400 leading-tight drop-shadow-glow tracking-tight"
             variants={itemVariants}
           >
             {extraterrestrialGoal.title}
@@ -327,7 +327,7 @@ export default function AboutClientPage() {
       {/* 2. Skills / Tech Stack / Soft Skills Section */}
       <section id="skills" className="relative z-10 py-16 sm:py-20 lg:py-28 px-4 sm:px-6 md:px-8 max-w-7xl mx-auto">
       <motion.h2
-        className="pb-6 text-4xl sm:text-5xl md:text-6xl font-extrabold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-lime-300 via-teal-300 to-sky-400 drop-shadow-lg tracking-tight"
+        className="pb-6 text-3xl sm:text-5xl md:text-6xl font-bold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-lime-300 via-teal-300 to-sky-400 drop-shadow-lg tracking-tight"
         initial={{ opacity: 0, y: 50, filter: 'blur(8px)' }}
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         viewport={{ once: true, amount: 0.5 }}
@@ -404,7 +404,7 @@ export default function AboutClientPage() {
       {/* 3. Tools & Certifications Section */}
       <section id="certifications" className="relative z-10 py-16 sm:py-20 lg:py-28 px-4 sm:px-6 md:px-8 max-w-6xl mx-auto">
         <motion.h2
-          className="pb-6 text-4xl sm:text-5xl md:text-6xl font-extrabold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-lime-300 via-teal-300 to-sky-400 drop-shadow-lg tracking-tight"
+          className="pb-6 text-3xl sm:text-5xl md:text-6xl font-bold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-lime-300 via-teal-300 to-sky-400 drop-shadow-lg tracking-tight"
           initial={{ opacity: 0, y: 50, filter: 'blur(8px)' }}
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: true, amount: 0.5 }}
@@ -481,7 +481,7 @@ export default function AboutClientPage() {
   <div className="absolute -bottom-40 -right-20 w-96 h-96 bg-purple-500/10 rounded-full mix-blend-multiply filter blur-3xl opacity-20" />
 
   <motion.h2
-    className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4"
+    className="text-3xl sm:text-5xl md:text-6xl font-bold text-center mb-4"
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-100px" }}

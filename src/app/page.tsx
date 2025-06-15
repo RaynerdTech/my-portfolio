@@ -13,9 +13,7 @@ export const metadata: Metadata = {
   title: 'Ray | Expert Next.js Developer & SEO Specialist in Lagos, Nigeria',
   description: 'I build high-performance, SEO-optimized websites for Nigerian & international businesses using Next.js, React, Node.js and TailwindCSS. Let\'s grow your brand online.',
   authors: [{ name: 'Ray', url: 'https://portfolio.raynerd.com.ng' }],
-
-  // As discussed, the 'keywords' tag has very little SEO value, 
-  // but this is the correct syntax if you choose to include it.
+  // Keywords for SEO
   keywords: ['web developer Lagos', 'freelance developer Nigeria', 'SEO expert Lagos', 'Next.js developer Nigeria', 'React developer Lagos'],
   
   // Open Graph (for Facebook, LinkedIn, etc.)
@@ -29,6 +27,7 @@ export const metadata: Metadata = {
         url: 'https://portfolio.raynerd.com.ng/images/preview.jpg', // Must be an absolute URL in production
         width: 1200,
         height: 630,
+        alt: 'Raynerd Portfolio Preview',
       },
     ],
     locale: 'en_US',

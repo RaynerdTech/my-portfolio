@@ -29,11 +29,7 @@ export const HeroSection = () => {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 1.2, ease: 'easeOut' }}
         // Remove the maskImage from this div, as it's for the overall background fade
-        // style={{
-        //   maskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)',
-        //   maskMode: 'alpha',
-        //   WebkitMaskImage: 'radial-gradient(ellipse at center, black 60%, transparent 100%)',
-        // }}
+      
       >
         <motion.h1
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold leading-tight mb-3 sm:mb-4 tracking-tight"
