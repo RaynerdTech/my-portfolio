@@ -23,6 +23,11 @@ interface WpPost {
   };
 }
 
+interface Props {
+  params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}
+
 const getPostBySlug = async (slug: string): Promise<WpPost | null> => {
   try {
     const res = await fetch(
@@ -156,18 +161,39 @@ const SocialShare = ({ postUrl, title }: { postUrl: string; title: string }) => 
   </div>
 );
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  // First await the params object
-  const { slug } =  await params;
+export async function generateStaticParams() {
+  try {
+    // Fetch all posts to get their slugs
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_WP_API_URL}/posts?per_page=100&_fields=slug`,
+      { next: { revalidate: 3600 } } // Cache this for an hour
+    );
+
+    if (!res.ok) {
+      // Return an empty array on error, so the build doesn't fail
+      return [];
+    }
+
+    const posts: { slug: string }[] = await res.json();
+
+    // Map the posts to the format Next.js expects for params
+    return posts.map((post) => ({
+      slug: post.slug,
+    }));
+  } catch (error) {
+    console.error('Failed to generate static params:', error);
+    return [];
+  }
+}
+
+
+export default async function BlogPostPage({ params }: Props) {
+  // Direct destructuring - no await needed in latest Next.js versions
+  const { slug } = params;
   
-  // Then use the slug in your functions
   const post = await getPostBySlug(slug);
 
-  if (!post) { 
+  if (!post) {
     return notFound();
   }
 
@@ -177,7 +203,7 @@ export default async function BlogPostPage({
   const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${slug}`;
   const adjacentPosts = await getAdjacentPosts(post.id);
 
-  return (
+  return ( 
     <>
       <article className="max-w-3xl mx-auto px-4 sm:px-6 py-12 lg:py-16 mt-12">
         <PostHeader
@@ -231,7 +257,7 @@ export default async function BlogPostPage({
           )}
         </div>
       </article>
-      <div>
+      <div> 
         <ContactSection />
       </div>
     </>

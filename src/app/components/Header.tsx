@@ -49,7 +49,7 @@ export const Header = () => {
 
   const linkVariants = {
     initial: { y: 0 },
-    hover: { y: -2, transition: { type: 'spring', stiffness: 300, damping: 10 } },
+    hover: { y: -2, transition: { type: 'spring' as const, stiffness: 300, damping: 10 } },
   };
 
   const mobileLinkVariants = {
@@ -98,7 +98,7 @@ export const Header = () => {
               href={link.href}
               className="relative text-lg group px-2 py-1 transition-colors duration-300 ease-out"
               variants={linkVariants}
-              whileHover="hover"
+              whileHover="hover" 
             >
               {link.name}
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-400 to-purple-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
