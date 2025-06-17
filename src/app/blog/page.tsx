@@ -12,7 +12,10 @@ interface WpPost {
   link: string;
   title: { rendered: string };
   excerpt: { rendered: string };
-  _embedded: any;
+ _embedded: {
+  'wp:featuredmedia'?: { source_url: string }[];
+  author?: { name: string }[];
+};
 }
 
 interface FetchPostsResult { 
