@@ -1,10 +1,10 @@
 // src/app/blog/page.tsx
 
 import React from 'react';
-import BlogPostCard from '../components/BlogPostCard'; // Assuming you have this component
-import PaginationControls from '../components/PaginationControls'; // Assuming you have this component
-import { ContactSection } from '../components/ContactSection'; 
-// --- Interface Definitions ---
+import BlogPostCard from '../components/BlogPostCard';
+import PaginationControls from '../components/PaginationControls';
+import { ContactSection } from '../components/ContactSection';
+
 interface WpPost {
   id: number;
   slug: string;
@@ -12,20 +12,19 @@ interface WpPost {
   link: string;
   title: { rendered: string };
   excerpt: { rendered: string };
- _embedded: {
-  'wp:featuredmedia'?: { source_url: string }[];
-  author?: { name: string }[];
-};
+  _embedded: {
+    'wp:featuredmedia'?: { source_url: string }[];
+    author?: { name: string }[];
+  };
 }
 
-interface FetchPostsResult { 
+interface FetchPostsResult {
   posts: WpPost[];
   totalPages: number;
 }
 
 const POSTS_PER_PAGE = 9;
 
-// --- Data Fetching ---
 const getPosts = async (page: number, perPage: number): Promise<FetchPostsResult> => {
   const API_URL = `${process.env.NEXT_PUBLIC_WP_API_URL}/posts?_embed=1&per_page=${perPage}&page=${page}`;
 
@@ -48,18 +47,14 @@ const getPosts = async (page: number, perPage: number): Promise<FetchPostsResult
   }
 };
 
-// --- Main Page Component ---
 export default async function BlogPage({
-  searchParams: sp,
+  searchParams,
 }: {
-  searchParams:
-    | { [key: string]: string | string[] | undefined }
-    | Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }> | 
+               { [key: string]: string | string[] | undefined };
 }) {
-  // Await the searchParams if they're a Promise
-  const searchParams = await sp;
-  const page = Number(searchParams?.page) || 1;
-
+  const resolvedSearchParams = await searchParams;
+  const page = Number(resolvedSearchParams?.page) || 1;
   const { posts, totalPages } = await getPosts(page, POSTS_PER_PAGE);
 
   return (

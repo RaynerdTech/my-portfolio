@@ -25,7 +25,6 @@ interface WpPost {
 
 const getPostBySlug = async (slug: string): Promise<WpPost | null> => {
   try {
-    // await new Promise((res) => setTimeout(res, 3000));
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_WP_API_URL}/posts?slug=${slug}&_embed=1`,
       { next: { revalidate: 3600 } }
@@ -120,7 +119,6 @@ const FeaturedImage = ({ src, alt }: { src: string; alt: string }) => (
   </figure>
 );
 
-
 const SocialShare = ({ postUrl, title }: { postUrl: string; title: string }) => (
   <div className="my-12 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl">
     <div className="flex flex-col sm:flex-row sm:items-center gap-4">
@@ -163,8 +161,11 @@ export default async function BlogPostPage({
 }: {
   params: { slug: string };
 }) {
-  const resolvedParams = await params;
-  const post = await getPostBySlug(resolvedParams.slug);
+  // First await the params object
+  const { slug } = await params;
+  
+  // Then use the slug in your functions
+  const post = await getPostBySlug(slug);
 
   if (!post) {
     return notFound();
@@ -173,7 +174,7 @@ export default async function BlogPostPage({
   const readingTime = calculateReadingTime(post.content.rendered);
   const author = post._embedded?.author?.[0];
   const featuredImage = post._embedded?.['wp:featuredmedia']?.[0];
-  const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${resolvedParams.slug}`;
+  const postUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/blog/${slug}`;
   const adjacentPosts = await getAdjacentPosts(post.id);
 
   return (
@@ -235,4 +236,4 @@ export default async function BlogPostPage({
       </div>
     </>
   );
-}
+}  

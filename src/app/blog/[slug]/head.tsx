@@ -10,3 +10,4 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     description: post.excerpt?.rendered?.replace(/(<([^>]+)>)/gi, ""),
   };
 }
+ 
