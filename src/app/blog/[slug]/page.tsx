@@ -162,12 +162,12 @@ export default async function BlogPostPage({
   params: { slug: string };
 }) {
   // First await the params object
-  const { slug } = await params;
+  const { slug } =  await params;
   
   // Then use the slug in your functions
   const post = await getPostBySlug(slug);
 
-  if (!post) {
+  if (!post) { 
     return notFound();
   }
 
