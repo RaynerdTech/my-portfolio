@@ -3,22 +3,18 @@
 import React from 'react';
 import BlogPostCard from '../components/BlogPostCard';
 import PaginationControls from '../components/PaginationControls';
-import { ContactSection } from '../components/ContactSection'; 
+import { ContactSection } from '../components/ContactSection';
 
-// --- Interface Definitions ---
-
-// Define specific interfaces for the embedded data
 interface WpFeaturedMedia {
   id: number;
   source_url: string;
   alt_text: string;
   media_details: {
     sizes: {
-      thumbnail: { source_url: string };
-      medium: { source_url: string };
-      large: { source_url: string };
-      full: { source_url: string };
-      // ... other sizes you might need
+      thumbnail?: { source_url: string };
+      medium?: { source_url: string };
+      large?: { source_url: string };
+      full?: { source_url: string };
     };
   };
 }
@@ -33,9 +29,8 @@ interface WpAuthor {
 }
 
 interface WpEmbedded {
-  'wp:featuredmedia'?: WpFeaturedMedia[]; // Array because it can be multiple or none
-  'author'?: WpAuthor[]; // Array because it can be multiple or none
-  // Add other embedded types as needed (e.g., 'wp:term')
+  'wp:featuredmedia'?: WpFeaturedMedia[];
+  'author'?: WpAuthor[];
 }
 
 interface WpPost {
@@ -45,7 +40,7 @@ interface WpPost {
   link: string;
   title: { rendered: string };
   excerpt: { rendered: string };
-  _embedded: WpEmbedded; // Use the specific embedded type here
+  _embedded: WpEmbedded;
 }
 
 interface FetchPostsResult {
@@ -55,38 +50,38 @@ interface FetchPostsResult {
 
 const POSTS_PER_PAGE = 9;
 
-// --- Data Fetching ---
+// --- Data Fetching with timeout ---
 const getPosts = async (page: number, perPage: number): Promise<FetchPostsResult> => {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 7000); // 7 seconds
+
   const API_URL = `${process.env.NEXT_PUBLIC_WP_API_URL}/posts?_embed=1&per_page=${perPage}&page=${page}`;
 
   try {
     const res = await fetch(API_URL, {
+      signal: controller.signal,
       next: { revalidate: 3600 },
     });
 
-    if (!res.ok) {
-      throw new Error(`Failed to fetch posts: ${res.statusText}`);
-    }
+    clearTimeout(timeout);
+
+    if (!res.ok) throw new Error(`Failed to fetch posts: ${res.statusText}`);
 
     const totalPages = Number(res.headers.get('X-WP-TotalPages') || '0');
     const posts: WpPost[] = await res.json();
 
     return { posts, totalPages };
   } catch (error) {
-    console.error(error);
+    console.error('Blog fetch failed:', error);
     return { posts: [], totalPages: 0 };
   }
 };
 
-// --- Main Page Component ---
 export default async function BlogPage({
   searchParams: sp,
 }: {
-  searchParams:
-    | { [key: string]: string | string[] | undefined }
-    | Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: { [key: string]: string | string[] | undefined } | Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  // Await the searchParams if they're a Promise
   const searchParams = await sp;
   const page = Number(searchParams?.page) || 1;
 
@@ -119,9 +114,7 @@ export default async function BlogPage({
 
         <PaginationControls currentPage={page} totalPages={totalPages} />
       </main>
-      <div>
-        <ContactSection />
-      </div>
+      <ContactSection />
     </div>
   );
 }

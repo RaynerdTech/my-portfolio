@@ -1,24 +1,20 @@
-'use client'; // Required for Framer Motion components
+'use client';
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link'; // At the top if not already
+import Link from 'next/link';
 
-// Re-using the interface from the page, or define it in a shared types file
 interface WpPost {
   id: number;
   date: string;
-    link: string;
-    slug: string; // Added for linking
-  title: {
-    rendered: string;
-  };
-  excerpt: {
-    rendered: string;
-  };
+  slug: string;
+  link: string;
+  title: { rendered: string };
+  excerpt: { rendered: string };
   _embedded: {
     'wp:featuredmedia'?: {
       source_url: string;
+      alt_text?: string;
     }[];
     'wp:term'?: {
       [key: string]: {
@@ -30,30 +26,23 @@ interface WpPost {
   };
 }
 
-// Utility to clean up excerpts
-// const cleanExcerpt = (htmlString: string) => {
-//   return htmlString.replace(/<[^>]+>/g, '').replace(/\[&hellip;\]/, '...');
-// };
-
 const cardVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut"
-    }
+    transition: { duration: 0.5, ease: 'easeOut' }
   },
 };
 
-export default function BlogPostCard({ post, isPriority = false }: { post: WpPost, isPriority?: boolean }) {
-  const imageUrl = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+export default function BlogPostCard({ post, isPriority = false }: { post: WpPost; isPriority?: boolean }) {
+  const image = post._embedded?.['wp:featuredmedia']?.[0];
+  const imageUrl = image?.source_url;
+  const altText = image?.alt_text || post.title.rendered || 'Blog image';
   const tags = post._embedded?.['wp:term'] ? Object.values(post._embedded['wp:term']).flat() : [];
 
-
   return (
-    <motion.li 
+    <motion.li
       variants={cardVariants}
       initial="hidden"
       animate="visible"
@@ -61,63 +50,73 @@ export default function BlogPostCard({ post, isPriority = false }: { post: WpPos
       transition={{ duration: 0.3 }}
       className="list-none"
     >
-     <Link href={`/blog/${post.slug}`} className="block group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col">
-      {imageUrl && (
+      <Link
+        href={`/blog/${post.slug}`}
+        className="block group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden h-full flex flex-col"
+      >
         <div className="relative w-full aspect-video overflow-hidden">
           <Image
-            src={imageUrl}
-            alt={post.title.rendered}
+            src={imageUrl || '/fallback.jpg'}
+            alt={altText}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-110"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            // Add the priority prop conditionally
             priority={isPriority}
+            onError={(e) => {
+              const target = e.currentTarget as HTMLImageElement;
+              target.src = '/fallback.jpg';
+            }}
           />
-          </div>
-        )}
-        
-        {/* The main card content area */}
+        </div>
+
         <div className="p-6 flex flex-col flex-grow">
-          {/* This wrapper div takes up the available space, pushing the footer down */}
           <div className="flex-grow">
             <p className="text-sm text-blue-500 dark:text-blue-400 font-semibold">
               {new Date(post.date).toLocaleDateString('en-US', {
                 year: 'numeric', month: 'long', day: 'numeric',
               })}
             </p>
+
             <h2
               className="mt-2 text-xl font-bold text-gray-900 dark:text-white leading-snug"
               dangerouslySetInnerHTML={{ __html: post.title.rendered }}
             />
+
             <div
               className="mt-3 text-sm text-gray-600 dark:text-gray-400 line-clamp-3"
-              dangerouslySetInnerHTML={{ __html: post.excerpt.rendered.replace(/<[^>]+>/g, '').replace(/\[&hellip;\]/, '...') }}
+              dangerouslySetInnerHTML={{
+                __html: post.excerpt.rendered
+                  .replace(/<[^>]+>/g, '')
+                  .replace(/\[&hellip;\]/, '...'),
+              }}
             />
           </div>
-          
-          {/* Card footer for tags and the new "Read More" link */}
+
           <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
             <div className="flex flex-wrap gap-2">
               {tags.slice(0, 3).map(tag => (
-                <span key={tag.id} className="text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full">
+                <span
+                  key={tag.id}
+                  className="text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded-full"
+                >
                   {tag.name}
                 </span>
               ))}
             </div>
-            
-            {/* DESIGN IMPROVEMENT: "Read More" link with animated arrow */}
+
             <div className="mt-4 text-blue-500 dark:text-blue-400 font-semibold flex items-center">
               Read More
-              <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transform-none ml-1">
+              <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 ml-1">
                 &rarr;
               </span>
             </div>
           </div>
         </div>
-        </Link>
+      </Link>
     </motion.li>
   );
 }
+
 
 // Skeleton component for a beautiful loading state
 export const BlogPostSkeleton = () => (
