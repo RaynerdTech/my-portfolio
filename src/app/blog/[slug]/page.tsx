@@ -25,7 +25,7 @@ interface WpPost {
 
 const getPostBySlug = async (slug: string): Promise<WpPost | null> => {
   try {
-    await new Promise((res) => setTimeout(res, 3000));
+    // await new Promise((res) => setTimeout(res, 3000));
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_WP_API_URL}/posts?slug=${slug}&_embed=1`,
       { next: { revalidate: 3600 } }
@@ -161,7 +161,7 @@ const SocialShare = ({ postUrl, title }: { postUrl: string; title: string }) => 
 export default async function BlogPostPage({
   params,
 }: {
-  params: Promise<{ slug: string }> | { slug: string };
+  params: { slug: string };
 }) {
   const resolvedParams = await params;
   const post = await getPostBySlug(resolvedParams.slug);
