@@ -1,10 +1,43 @@
 // src/app/blog/page.tsx
 
 import React from 'react';
-import BlogPostCard from '../components/BlogPostCard'; // Assuming you have this component
-import PaginationControls from '../components/PaginationControls'; // Assuming you have this component
+import BlogPostCard from '../components/BlogPostCard';
+import PaginationControls from '../components/PaginationControls';
+import { ContactSection } from '../components/ContactSection'; 
 
 // --- Interface Definitions ---
+
+// Define specific interfaces for the embedded data
+interface WpFeaturedMedia {
+  id: number;
+  source_url: string;
+  alt_text: string;
+  media_details: {
+    sizes: {
+      thumbnail: { source_url: string };
+      medium: { source_url: string };
+      large: { source_url: string };
+      full: { source_url: string };
+      // ... other sizes you might need
+    };
+  };
+}
+
+interface WpAuthor {
+  id: number;
+  name: string;
+  url: string;
+  description: string;
+  link: string;
+  slug: string;
+}
+
+interface WpEmbedded {
+  'wp:featuredmedia'?: WpFeaturedMedia[]; // Array because it can be multiple or none
+  'author'?: WpAuthor[]; // Array because it can be multiple or none
+  // Add other embedded types as needed (e.g., 'wp:term')
+}
+
 interface WpPost {
   id: number;
   slug: string;
@@ -12,10 +45,10 @@ interface WpPost {
   link: string;
   title: { rendered: string };
   excerpt: { rendered: string };
-  _embedded: any;
+  _embedded: WpEmbedded; // Use the specific embedded type here
 }
 
-interface FetchPostsResult { 
+interface FetchPostsResult {
   posts: WpPost[];
   totalPages: number;
 }
@@ -86,6 +119,9 @@ export default async function BlogPage({
 
         <PaginationControls currentPage={page} totalPages={totalPages} />
       </main>
+      <div>
+        <ContactSection />
+      </div>
     </div>
   );
 }
