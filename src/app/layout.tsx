@@ -5,8 +5,8 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Your Name | Fullstack Developer',
-  description: 'Fullstack Developer portfolio built with Next.js',
+  title: 'Ray | Fullstack Developer',
+  description: 'Fullstack Web Developer',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

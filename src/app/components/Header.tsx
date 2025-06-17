@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,16 +10,17 @@ const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'About', href: '/about' },
   { name: 'Projects', href: '/projects' },
+  { name: 'Blog', href: '/blog' },
   { name: 'Contact', href: '#contact' },
 ];
 
 export const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [hasMounted, setHasMounted] = useState(false); // 👈 Add this
+  const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
-    setHasMounted(true); // 👈 Update this
+    setHasMounted(true);
   }, []);
 
   useEffect(() => {
@@ -60,7 +62,6 @@ export const Header = () => {
     visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.07, delayChildren: 0.2 } },
   };
 
-  // 👇 Prevent hydration mismatch
   if (!hasMounted) return null;
 
   return (
@@ -70,17 +71,23 @@ export const Header = () => {
       transition={{ type: 'spring', stiffness: 100, damping: 20 }}
       className={`fixed top-0 left-0 w-full z-50 px-4 py-3 sm:px-6 md:px-8 lg:px-12 transition-all duration-300
         ${scrolled
-          ? 'bg-gradient-to-r from-slate-900/90 to-black/90 backdrop-blur-lg border-b border-purple-500/30 shadow-xl'
+          ? 'bg-gradient-to-r from-slate-900/90 via-gray-700/80 to-black/90 backdrop-blur-lg border-b border-purple-500/30 shadow-xl'
           : 'bg-transparent backdrop-blur-md border-b border-transparent'
         }
       `}
     >
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link
-          href="/"
-          className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 hover:from-blue-300 hover:to-purple-300 transition-all duration-300 ease-out tracking-wide"
-        >
-          Ray()
+        {/* Updated Section - Logo inside a light gradient area */}
+        <Link href="/" className="transition-all duration-300 ease-out">
+          <div className="bg-gradient-to-r from-white/60 to-transparent p-1 rounded-md">
+            <Image 
+              src="/images/raylogo.png"
+              alt="Ray Logo"
+              width={40}
+              height={30}
+              priority
+            />
+          </div>
         </Link>
 
         {/* Desktop Nav */}
