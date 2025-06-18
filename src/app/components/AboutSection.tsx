@@ -24,7 +24,9 @@ const techStack = [
 ];
 
 // Framer Motion variants for staggered animation of tech items
-const techContainerVariants = {
+import type { Variants } from 'framer-motion';
+
+const techContainerVariants: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -35,14 +37,14 @@ const techContainerVariants = {
   },
 };
 
-const techItemVariants = {
+const techItemVariants: Variants = {
   hidden: { opacity: 0, y: 30, scale: 0.8 },
   show: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      type: 'spring',
+      type: 'spring' as const,
       stiffness: 120,
       damping: 15,
     },

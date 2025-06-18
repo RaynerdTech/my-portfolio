@@ -4,7 +4,7 @@
 'use client'; // This directive is essential here!
 
 // All your original imports remain here
-import { motion, useAnimation, AnimatePresence } from 'framer-motion';
+import { motion, useAnimation, AnimatePresence, easeOut } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
@@ -201,17 +201,17 @@ const certifications: Certification[] = [
 // --- FRAMER MOTION VARIANTS ---
 const sectionVariants = {
   hidden: { opacity: 0, y: 50 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: 'easeOut' } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: easeOut } },
 };
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100, damping: 15, delay: 0.1 } },
+  show: { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 100, damping: 15, delay: 0.1 } },
 };
 
 const skillPillVariants = {
   hidden: { opacity: 0, x: -20 },
-  show: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 120, damping: 10 } },
+  show: { opacity: 1, x: 0, transition: { type: "spring" as const, stiffness: 120, damping: 10 } },
   hover: { scale: 1.05, boxShadow: "0 0 15px rgba(128,0,128,0.5)", transition: { duration: 0.2 } },
 };
 

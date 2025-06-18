@@ -5,6 +5,7 @@ import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://my-portfolio-virid-phi-66.vercel.app'),
   title: 'Ray | Fullstack Developer',
   description: 'Fullstack Web Developer',
 };

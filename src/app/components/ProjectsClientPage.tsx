@@ -152,29 +152,31 @@ const faqs: FAQItem[] = [
     },
 ];
 
-const timelineStepVariants = {
+import type { Variants, Transition } from 'framer-motion';
+
+const timelineStepVariants: Variants = {
     hidden: { opacity: 0, y: 50, scale: 0.7 },
-    show: (i: number) => ({
+    show: (i: number = 0) => ({
         opacity: 1,
         y: 0,
         scale: 1,
         transition: {
-            type: 'spring',
+            type: "spring" as const,
             stiffness: 120,
             damping: 15,
             delay: i * 0.15,
             duration: 0.7,
-        },
+        } as Transition,
     }),
 };
 
-const faqItemVariants = {
+const faqItemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     show: {
         opacity: 1,
         y: 0,
         transition: {
-            type: 'spring',
+            type: "spring" as const,
             stiffness: 100,
             damping: 10,
         },
