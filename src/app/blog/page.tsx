@@ -164,18 +164,24 @@ async function getPosts(page: number, perPage: number): Promise<FetchPostsResult
   }
 }
 
-// ✅ Ultimate working version for Next.js 15.3.3 with Turbopack
+// ✅ Final production-ready solution
+type SearchParams = Record<string, string | string[] | undefined>;
+
 interface BlogPageProps {
-  searchParams: any; // Using 'any' as a last resort to bypass Turbopack issues
+  searchParams: SearchParams | Promise<SearchParams>;
+}
+
+function isPromise<T>(obj: any): obj is Promise<T> {
+  return !!obj && typeof obj.then === 'function';
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  // First resolve the searchParams if it's a Promise (Turbopack development)
-  const params = searchParams?.then 
-    ? await searchParams 
+  // Handle both Promise and regular object cases
+  const params: SearchParams = isPromise<SearchParams>(searchParams)
+    ? await searchParams
     : searchParams || {};
   
-  // Then safely extract page number
+  // Safely extract page number with proper type guards
   const pageParam = params?.page;
   const pageNumber = Array.isArray(pageParam) 
     ? pageParam[0] 
