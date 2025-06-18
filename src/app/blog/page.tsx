@@ -164,17 +164,17 @@ async function getPosts(page: number, perPage: number): Promise<FetchPostsResult
   }
 }
 
-// ✅ Final clean solution with no 'any' type
-type SearchParams = Record<string, string | string[] | undefined>;
+// ✅ Final working solution
+type SearchParams = { page?: string | string[] } & Record<string, string | string[] | undefined>;
 
-interface BlogPageProps {
-  searchParams: SearchParams | { then?: never }; // Alternative to Promise type
-}
-
-export default async function BlogPage({ searchParams }: BlogPageProps) {
-  // Type-safe resolution without any
-  const params: SearchParams = 'then' in searchParams 
-    ? await (searchParams as unknown as Promise<SearchParams>)
+export default async function BlogPage({
+  searchParams = { page: '1' }
+}: {
+  searchParams?: SearchParams | Promise<SearchParams>;
+}) {
+  // Handle both Promise and object cases
+  const params: SearchParams = searchParams instanceof Promise 
+    ? await searchParams 
     : searchParams;
   
   // Safely extract page number
@@ -215,6 +215,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         )}
       </main>
       <ContactSection />
-    </div>
+    </div> 
   );
 }
