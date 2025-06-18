@@ -132,8 +132,7 @@ import BlogPostCard from '../components/BlogPostCard';
 import PaginationControls from '../components/PaginationControls';
 import { ContactSection } from '../components/ContactSection';
 
-
-// --- Types --- (Your existing types are fine)
+// --- Types ---
 interface WpFeaturedMedia { id: number; source_url: string; alt_text: string; }
 interface WpAuthor { name: string; }
 interface WpEmbedded { 'wp:featuredmedia'?: WpFeaturedMedia[]; 'author'?: WpAuthor[]; }
@@ -147,37 +146,42 @@ interface WpPost {
   _embedded: WpEmbedded;
 }
 interface FetchPostsResult { posts: WpPost[]; totalPages: number; }
+
 const POSTS_PER_PAGE = 9;
 
-// --- Data Fetching --- (Your existing function is fine, with a small tweak for clarity)
+// --- Data Fetcher ---
 async function getPosts(page: number, perPage: number): Promise<FetchPostsResult> {
-    const API_URL = `${process.env.NEXT_PUBLIC_WP_API_URL}/posts?_embed=1&per_page=${perPage}&page=${page}`;
-    try {
-        const res = await fetch(API_URL, { next: { revalidate: 3600 } }); // Revalidate every hour
-        if (!res.ok) {
-          throw new Error(`Failed to fetch posts: ${res.status} ${res.statusText}`);
-        }
-        const totalPages = Number(res.headers.get('X-WP-TotalPages') || '0');
-        const posts: WpPost[] = await res.json();
-        return { posts, totalPages };
-    } catch (error) {
-        console.error('Blog fetch failed:', error);
-        // Return a state that can be handled gracefully by the UI
-        return { posts: [], totalPages: 0 };
-    }
+  const API_URL = `${process.env.NEXT_PUBLIC_WP_API_URL}/posts?_embed=1&per_page=${perPage}&page=${page}`;
+  try {
+    const res = await fetch(API_URL, { next: { revalidate: 3600 } });
+    if (!res.ok) throw new Error(`Failed to fetch posts: ${res.status} ${res.statusText}`);
+    const totalPages = Number(res.headers.get('X-WP-TotalPages') || '0');
+    const posts: WpPost[] = await res.json();
+    return { posts, totalPages };
+  } catch (error) {
+    console.error('Blog fetch failed:', error);
+    return { posts: [], totalPages: 0 };
+  }
 }
 
-// --- Page Props Interface ---
+// ✅ Ultimate working version for Next.js 15.3.3 with Turbopack
 interface BlogPageProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: any; // Using 'any' as a last resort to bypass Turbopack issues
 }
 
-// --- Page Component ---
-// This component will only render *after* the data is fetched.
-// `loading.tsx` will be displayed as a fallback during the fetch.
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  // This is now 100% safe because Suspense handles the loading state.
-  const page = Number(searchParams?.page) || 1;
+  // First resolve the searchParams if it's a Promise (Turbopack development)
+  const params = searchParams?.then 
+    ? await searchParams 
+    : searchParams || {};
+  
+  // Then safely extract page number
+  const pageParam = params?.page;
+  const pageNumber = Array.isArray(pageParam) 
+    ? pageParam[0] 
+    : pageParam;
+  const page = pageNumber ? Math.max(1, parseInt(pageNumber)) || 1 : 1;
+
   const { posts, totalPages } = await getPosts(page, POSTS_PER_PAGE);
 
   return (
@@ -212,4 +216,3 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
     </div>
   );
 }
-
