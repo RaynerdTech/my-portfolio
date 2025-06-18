@@ -131,6 +131,7 @@ import React from 'react';
 import BlogPostCard from '../components/BlogPostCard';
 import PaginationControls from '../components/PaginationControls';
 import { ContactSection } from '../components/ContactSection';
+import { use } from 'react'; // Import the use hook
 
 // --- Types ---
 interface WpFeaturedMedia { id: number; source_url: string; alt_text: string; }
@@ -164,18 +165,15 @@ async function getPosts(page: number, perPage: number): Promise<FetchPostsResult
   }
 }
 
-// ✅ Final working solution
-type SearchParams = { page?: string | string[] } & Record<string, string | string[] | undefined>;
+export const dynamic = 'force-dynamic';
 
-export default async function BlogPage({
-  searchParams = { page: '1' }
+export default function BlogPage({
+  searchParams,
 }: {
-  searchParams?: SearchParams | Promise<SearchParams>;
+  searchParams: Promise<{ page?: string | string[] }>;
 }) {
-  // Handle both Promise and object cases
-  const params: SearchParams = searchParams instanceof Promise 
-    ? await searchParams 
-    : searchParams;
+  // Properly await the searchParams using React's use hook
+  const params = use(searchParams);
   
   // Safely extract page number
   const pageParam = params?.page;
@@ -184,7 +182,7 @@ export default async function BlogPage({
     : pageParam;
   const page = pageNumber ? Math.max(1, parseInt(pageNumber)) || 1 : 1;
 
-  const { posts, totalPages } = await getPosts(page, POSTS_PER_PAGE);
+  const { posts, totalPages } = use(getPosts(page, POSTS_PER_PAGE));
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
@@ -215,6 +213,6 @@ export default async function BlogPage({
         )}
       </main>
       <ContactSection />
-    </div> 
+    </div>        
   );
 }

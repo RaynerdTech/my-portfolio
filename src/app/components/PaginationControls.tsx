@@ -69,7 +69,7 @@ export default function PaginationControls({ currentPage, totalPages }: Paginati
   };
   
   if (totalPages <= 1) {
-    return null; // Don't render controls if there's only one page
+    return null;
   }
 
   return (
