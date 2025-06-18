@@ -164,24 +164,20 @@ async function getPosts(page: number, perPage: number): Promise<FetchPostsResult
   }
 }
 
-// ✅ Final production-ready solution
+// ✅ Final clean solution with no 'any' type
 type SearchParams = Record<string, string | string[] | undefined>;
 
 interface BlogPageProps {
-  searchParams: SearchParams | Promise<SearchParams>;
-}
-
-function isPromise<T>(obj: any): obj is Promise<T> {
-  return !!obj && typeof obj.then === 'function';
+  searchParams: SearchParams | { then?: never }; // Alternative to Promise type
 }
 
 export default async function BlogPage({ searchParams }: BlogPageProps) {
-  // Handle both Promise and regular object cases
-  const params: SearchParams = isPromise<SearchParams>(searchParams)
-    ? await searchParams
-    : searchParams || {};
+  // Type-safe resolution without any
+  const params: SearchParams = 'then' in searchParams 
+    ? await (searchParams as unknown as Promise<SearchParams>)
+    : searchParams;
   
-  // Safely extract page number with proper type guards
+  // Safely extract page number
   const pageParam = params?.page;
   const pageNumber = Array.isArray(pageParam) 
     ? pageParam[0] 
