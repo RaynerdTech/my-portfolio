@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://portfolio.raynerd.com.ng
+
+# Sitemaps
+Sitemap: https://portfolio.raynerd.com.ng/sitemap.xml
