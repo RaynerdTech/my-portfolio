@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     description: "Learn about my journey and skills in web development.",
     // You could even use a different image here, like a professional headshot
     images: [
-      "https://my-portfolio-virid-phi-66.vercel.app/images/raynerd-tech.jpg",
+      "https://portfolio.raynerd.com.ng/images/raynerd-tech.jpg",
     ],
   },
 
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     title: "About Me | Ray - Web Developer in Lagos",
     description: "Learn about my journey and skills in web development.",
     images: [
-      "https://my-portfolio-virid-phi-66.vercel.app/images/raynerd-tech.jpg",
+      "https://portfolio.raynerd.com.ng/images/raynerd-tech.jpg",
     ],
   },
 };

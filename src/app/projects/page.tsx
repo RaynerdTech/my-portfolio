@@ -52,7 +52,7 @@ export const metadata: Metadata = {
       "From starter sites to scalable apps, I build custom digital solutions. Explore my services!",
 
     // Twitter Image: Using the same consistent image.
-    images: ["https://my-portfolio-virid-phi-66.vercel.app/images/preview.jpg"], // Ensure this path is correct in your `public` folder
+    images: ["https://portfolio.raynerd.com.ng/images/preview.jpg"], // Ensure this path is correct in your `public` folder
   },
 };
 

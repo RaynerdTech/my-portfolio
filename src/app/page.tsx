@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "Ray's Portfolio",
     images: [
       {
-        url: "https://my-portfolio-virid-phi-66.vercel.app/images/preview.jpg", // Must be an absolute URL in production
+        url: "https://portfolio.raynerd.com.ng/images/preview.jpg", // Must be an absolute URL in production
         width: 1200,
         height: 630,
         alt: "Raynerd Portfolio Preview",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     title: "Ray | High-Performance Web Developer in Lagos",
     description:
       "Helping businesses grow with fast, SEO-friendly websites built with Next.js.",
-    images: ["https://my-portfolio-virid-phi-66.vercel.app/images/preview.jpg"], // Must be an absolute URL in production
+    images: ["https://portfolio.raynerd.com.ng/images/preview.jpg"], // Must be an absolute URL in production
   },
 };
 
