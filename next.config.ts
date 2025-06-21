@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'blogtech.raynerd.com.ng',
+        hostname: 'raynerd.com.ng',
         port: '',
         pathname: '/wp-content/uploads/**',
       },
