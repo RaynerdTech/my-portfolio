@@ -19,6 +19,8 @@ export const metadata: Metadata = {
     "e-commerce websites",
     "freelance developer lagos",
     "Ray web developer",
+    "web developer",
+    "website developer",
   ],
 
   openGraph: {

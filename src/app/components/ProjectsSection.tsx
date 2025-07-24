@@ -15,6 +15,13 @@ const projects = [
     github: 'https://github.com/RaynerdTech/Pixel-Ad',
   },
   {
+  title: 'SoccerHub',
+  demo: 'https://match-craft-six.vercel.app/',
+  description: 'A football platform where players join matches, create teams, and pay online, while organizers host events and verify tickets.',
+  tags: ['Next.js', 'Tailwind CSS', 'TypeScript', 'MongoDB', 'Paystack', 'Vercel Hosting'],
+  github: 'https://github.com/RaynerdTech/MatchCraft',
+},
+  {
     title: 'Todo App',
     demo: 'https://todo-app-green-three-88.vercel.app/',
     description: 'A simple, elegant todo app with dynamic list management and filters.',
@@ -35,13 +42,7 @@ const projects = [
     tags: ['HTML', 'CSS', 'JavaScript', 'Nodejs', 'MongoDB', 'cPanel Hosting'],
     github: 'https://github.com/RaynerdTech/ecommerce-deploy',
   },
-  {
-    title: 'SoccerZone',
-    demo: 'https://soccerzone.ng/',
-    description: 'Football events booking website. Book field, register for matches and make payment.',
-    tags: ['WordPress', 'WooCommerce', 'PHP', 'Amelia', 'cPanel Hosting', 'Other Plugins'],
-    github: '#',
-  },
+
   {
     title: 'CozyCoz',
     demo: 'https://cozycuz.com/',
@@ -49,6 +50,13 @@ const projects = [
     tags: ['WordPress', 'WooCommerce', 'cPanel Hosting'],
     github: '#',
   },
+    {
+    title: 'SoccerZone',
+    demo: 'https://soccerzone.ng/',
+    description: 'Football events booking website. Book field, register for matches and make payment.',
+    tags: ['WordPress', 'WooCommerce', 'PHP', 'Amelia', 'cPanel Hosting', 'Other Plugins'],
+    github: '#',
+  }
 ];
 
 const containerVariants = {
