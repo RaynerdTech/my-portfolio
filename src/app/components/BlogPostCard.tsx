@@ -34,7 +34,8 @@ export default function BlogPostCard({ post, isPriority = false }: BlogPostCardP
 
   return (
     <li className="group flex flex-col bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-1">
-      <Link href={`/blog/${post.slug}`} className="flex flex-col h-full">
+      <Link href={`https://raynerd.com.ng/${post.slug}`} target="_blank" rel="noopener noreferrer" className="flex flex-col h-full">
+
         <div className="relative aspect-video">
           {featuredMedia ? (
             <Image
